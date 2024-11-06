@@ -1,0 +1,47 @@
+
+CREATE TABLE student(Rollno int,Name varchar(20),Address varchar(10),Marks int);
+CREATE TABLE del(roll int,name varchar(20),address varchar(10),marks int);
+ 
+Insert into student(Rollno,Name,Address,Marks)Values(1,"Ayush","kyn",55),(2,"Ajinkya","Nsk",57),(3,"Mohit","Pun",60),(4,"Aniket","kyn",48);
+
+--1.
+CREATE TRIGGER del_trig
+    AFTER DELETE
+    ON student
+    FOR EACH ROW
+    INSERT INTO del VALUES
+    (OLD.Rollno, OLD.Name, OLD.Address, OLD.Marks);
+Delete From student where Rollno=2;
+
+
+--2.
+CREATE TABLE newstud(Roll int,status DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TRIGGER aftin
+    AFTER INSERT
+    ON student
+    FOR EACH ROW
+    INSERT INTO newstud (Roll) VALUES (NEW.RollNo);
+Insert into student VALUES
+    (2,"Ajinkya","Pun",55);
+
+select * From newstud;
+
+
+CREATE VIEW myview AS
+select Rollno,Name,Marks From student;
+
+select *from myview;
+
+
+--3.CREATE TABLE updatedstud (
+    OldRoll INT,
+    NewRoll INT
+);
+CREATE TRIGGER aftup
+AFTER UPDATE
+ON student
+FOR EACH ROW
+INSERT INTO updatedstud (OldRoll, NewRoll) VALUES (OLD.RollNo, NEW.RollNo);
+
+select *from updatedstud;
+

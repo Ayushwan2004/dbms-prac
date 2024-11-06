@@ -1,0 +1,75 @@
+CREATE TABLE Student (
+      StudentID INT PRIMARY KEY,
+      StudentName VARCHAR(50) NOT NULL,
+      CourseID INT);
+
+
+CREATE TABLE Course (
+    CourseID INT PRIMARY KEY,
+    CourseName VARCHAR(50) NOT NULL);
+
+
+INSERT INTO Student (StudentID, StudentName, CourseID) VALUES
+    (1, 'Amita', 101),
+    (2, 'Neha', 102),
+    (3, 'Sagar', 103),
+    (4, 'sneha', 106),
+    (5, 'Shubham', 105);
+
+
+INSERT INTO Course (CourseID, CourseName) VALUES
+    (101, 'Physics'),
+    (102, 'Chemistry'),
+    (104, 'Biology');
+
+
+ DESC Student;
+
+DESC Course;
+
+SELECT * FROM Student;
+
+
+ SELECT * FROM Course;
+
+
+ SELECT * FROM Student S
+    INNER JOIN Course C
+    ON S.CourseID = C.CourseID;
++-----------+-------------+----------+----------+------------+
+| StudentID | StudentName | CourseID | CourseID | CourseName |
++-----------+-------------+----------+----------+------------+
+|         1 | Amita       |      101 |      101 | Physics    |
+|         2 | Neha        |      102 |      102 | Chemistry  |
++-----------+-------------+----------+----------+------------+
+
+
+SELECT * FROM Student
+    INNER JOIN Course
+    ON Student.CourseID = Course.CourseID;
+
+SELECT * FROM Student S
+   LEFT JOIN Course C
+   ON S.CourseID = C.CourseID;
++-----------+-------------+----------+----------+------------+
+| StudentID | StudentName | CourseID | CourseID | CourseName |
++-----------+-------------+----------+----------+------------+
+|         1 | Amita       |      101 |      101 | Physics    |
+|         2 | Neha        |      102 |      102 | Chemistry  |
+|         3 | Sagar       |      103 |     NULL | NULL       |
+|         4 | sneha       |      106 |     NULL | NULL       |
+|         5 | Shubham     |      105 |     NULL | NULL       |
++-----------+-------------+----------+----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Student S
+    -> RIGHT JOIN Course C
+    -> ON S.CourseID = C.CourseID;
++-----------+-------------+----------+----------+------------+
+| StudentID | StudentName | CourseID | CourseID | CourseName |
++-----------+-------------+----------+----------+------------+
+|         1 | Amita       |      101 |      101 | Physics    |
+|         2 | Neha        |      102 |      102 | Chemistry  |
+|      NULL | NULL        |     NULL |      104 | Biology    |
++-----------+-------------+----------+----------+------------+
+3 rows in set (0.00 sec)
